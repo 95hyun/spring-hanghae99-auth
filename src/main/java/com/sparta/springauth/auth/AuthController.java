@@ -97,6 +97,7 @@ public class AuthController {
 
         // 토큰에서 사용자 정보 가져오기
         Claims info = jwtUtil.getUserInfoFromToken(token);
+        // Claims : 토큰에 대한 기본적인 정보들. 'iss' (발급자), 'sub' (주제), 'exp' (만료 시간), 'iat' (발급 시간) 등을 포함
         // 사용자 username
         String username = info.getSubject();
         System.out.println("username = " + username);
