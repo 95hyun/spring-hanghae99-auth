@@ -27,7 +27,7 @@ public class AuthController {
     }
 
     /**
-     * 서버에서 클라이언트로 응답을 보낼때의 내용을 파라미터로 받아서
+     * 서버에서 클라이언트로 응답을 보낼때의 내용을 파라미터로 받아서(was에서 http 메세지 정보를 받을때 이미 생성)
      * addCookie (cookieValue, response 데이터) 형식으로 쿠키를 만든다.
      * @param res 서버에서 클라이언트로 응답을 보내는 내용
      * @return
@@ -122,11 +122,11 @@ public class AuthController {
             // Cookie Value 에는 공백이 불가능해서 encoding 진행
 
             Cookie cookie = new Cookie(AUTHORIZATION_HEADER, cookieValue); // Name-Value
-            cookie.setPath("/");
+            cookie.setPath("/"); // 설정된 경로 이하의 경로에서만 해당 쿠키가 전송. 즉 여기서는 모든 경로에서 유효.
             cookie.setMaxAge(30 * 60);
 
             // Response 객체에 Cookie 추가
-            res.addCookie(cookie);
+            res.addCookie(cookie); // 나중에 다시 클라이언트로 응답보낼때 쿠키가 들어있어야 하니까!
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e.getMessage());
         }
