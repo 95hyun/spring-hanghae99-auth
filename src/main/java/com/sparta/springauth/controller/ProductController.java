@@ -1,16 +1,17 @@
 package com.sparta.springauth.controller;
 
+import com.sparta.springauth.dto.ProductRequestDto;
 import com.sparta.springauth.entity.User;
 import com.sparta.springauth.entity.UserRoleEnum;
 import com.sparta.springauth.security.UserDetailsImpl;
 import com.sparta.springauth.security.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api")
@@ -36,5 +37,11 @@ public class ProductController {
         }
 
         return "redirect:/";
+    }
+
+    @PostMapping("/validation")
+    @ResponseBody
+    public ProductRequestDto testValid(@RequestBody @Valid ProductRequestDto requestDto) {
+        return requestDto;
     }
 }
