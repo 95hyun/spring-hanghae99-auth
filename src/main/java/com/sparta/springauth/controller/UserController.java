@@ -6,6 +6,7 @@ import com.sparta.springauth.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/user/signup")
-    public String signup(SignupRequestDto requestDto) {
+    public String signup(@ModelAttribute SignupRequestDto requestDto) {
         userService.signup(requestDto);
 
         return "redirect:/api/user/login-page";
@@ -38,6 +39,7 @@ public class UserController {
 
     @PostMapping("/user/login")
     public String login(LoginRequestDto requestDto, HttpServletResponse res) {
+        // res에 응답에 대한 서블릿정보를 담을거니까 HttpServletResponse 객체(그릇)을 파라미터로 필요.
         try {
             userService.login(requestDto, res);
         } catch (Exception e) {
